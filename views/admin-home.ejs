@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Кабинет сотрудника | Точка Открытий</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/admin/assets/admin.css" />
+  </head>
+  <body>
+    <div class="bg-gradient"></div>
+    <div class="admin-wrap">
+      <div class="admin-top">
+        <div class="brand">
+          <div class="brand-badge">ТО</div>
+          <div>
+            <h1>Кабинет сотрудника</h1>
+            <p><%= admin.full_name || admin.username %> · <%= roleLabel(admin.role) %></p>
+          </div>
+        </div>
+        <div class="top-actions">
+          <a class="btn btn-outline" href="/" target="_blank">Сайт</a>
+          <form method="post" action="/admin/logout" style="margin:0"><button class="btn btn-dark" type="submit">Выйти</button></form>
+        </div>
+      </div>
+
+      <%- include('partials/admin-nav', { admin, active: 'home' }) %>
+
+      <div class="role-banner role-<%= admin.role %>">
+        <% if (admin.role === 'admin') { %>
+        <strong>Администратор</strong> — полный доступ: пользователи, журнал действий, аналитика, контент, заявки, сеансы.
+        <% } else if (admin.role === 'coordinator') { %>
+        <strong>Координатор</strong> — публикации, назначение специалистов, расписание сеансов, результаты теста родителей.
+        <% } else { %>
+        <strong>Специалист</strong> — ваши назначенные записи, личное расписание сеансов, заметки по приёмам, материалы библиотеки.
+        <% } %>
+      </div>
+
+      <div class="dash-grid">
+        <% if (admin.role === 'coordinator' || admin.role === 'admin') { %>
+        <a class="dash-card" href="/admin/news">
+          <h3>Новости</h3>
+          <p>Публикация новостей центра на сайте</p>
+          <span class="dash-num"><%= stats.news %></span>
+        </a>
+        <a class="dash-card" href="/admin/events">
+          <h3>Анонсы событий</h3>
+          <p>Мероприятия для родителей и педагогов</p>
+          <span class="dash-num"><%= stats.events %></span>
+        </a>
+        <a class="dash-card" href="/admin/analytics">
+          <h3>Аналитика</h3>
+          <p>Графики заявок, тестов и нагрузки</p>
+          <span class="dash-num"><%= stats.quizWeek || 0 %> тестов / 7 дн.</span>
+        </a>
+        <% } %>
+
+        <a class="dash-card" href="/admin">
+          <h3><%= admin.role === 'specialist' ? 'Мои записи' : 'Заявки' %></h3>
+          <p>Обращения с сайта и записи на приём</p>
+          <span class="dash-num"><%= stats.newRequests %> новых</span>
+        </a>
+
+        <a class="dash-card" href="/admin/sessions">
+          <h3>Сеансы</h3>
+          <p><%= admin.role === 'specialist' ? 'Ваше расписание' : 'Расписание для родителей' %></p>
+          <span class="dash-num"><%= admin.role === 'specialist' ? (stats.mySessions || 0) : stats.sessions %> предстоящих</span>
+        </a>
+
+        <% if (admin.role === 'coordinator' || admin.role === 'admin') { %>
+        <a class="dash-card" href="/admin/quiz">
+          <h3>Тест родителей</h3>
+          <p>Результаты подбора направления</p>
+          <span class="dash-num"><%= stats.quizTotal %> всего</span>
+        </a>
+        <% } %>
+
+        <a class="dash-card" href="/admin/library">
+          <h3>Библиотека</h3>
+          <p><%= admin.role === 'specialist' ? 'Методические материалы' : 'Модерация материалов' %></p>
+          <% if (stats.pendingLib > 0) { %><span class="dash-badge"><%= stats.pendingLib %> на проверке</span><% } %>
+        </a>
+
+        <% if (admin.role === 'admin') { %>
+        <a class="dash-card" href="/admin/users">
+          <h3>Пользователи</h3>
+          <p>Роли и доступы сотрудников</p>
+        </a>
+        <a class="dash-card" href="/admin/audit">
+          <h3>Журнал действий</h3>
+          <p>Аудит и логи ИИ-помощника</p>
+        </a>
+        <% } %>
+      </div>
+
+      <% if (upcomingSessions && upcomingSessions.length) { %>
+      <div class="card panel-section">
+        <h3>Ближайшие сеансы</h3>
+        <div class="mini-list">
+          <% upcomingSessions.forEach((s) => { %>
+          <div class="mini-item">
+            <span class="mini-date"><%= s.session_date %> <%= s.session_time || '' %></span>
+            <strong><%= s.title %></strong>
+            <span class="muted"><%= s.direction || '' %></span>
+          </div>
+          <% }) %>
+        </div>
+        <a class="btn btn-outline" href="/admin/sessions" style="margin-top:12px">Все сеансы →</a>
+      </div>
+      <% } %>
+
+      <% if (admin.role === 'admin' && recentAudit && recentAudit.length) { %>
+      <div class="card panel-section">
+        <h3>Последние действия в системе</h3>
+        <table>
+          <thead><tr><th>Время</th><th>Пользователь</th><th>Действие</th><th>Детали</th></tr></thead>
+          <tbody>
+            <% recentAudit.forEach((a) => { %>
+            <tr>
+              <td class="muted"><%= new Date(a.created_at).toLocaleString('ru-RU') %></td>
+              <td><%= a.username %></td>
+              <td><%= a.action %></td>
+              <td class="muted"><%= a.details || (a.entity_type ? a.entity_type + ' #' + a.entity_id : '—') %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <% } %>
+    </div>
+  </body>
+</html>

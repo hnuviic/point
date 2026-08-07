@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Как проходят сеансы | Точка Открытий</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="seansy.css">
+    <link rel="stylesheet" href="css/site-footer.css">
+  <link rel="stylesheet" href="css/ai-chat.css">
+</head>
+<body>
+  <header id="header">
+    <div class="container">
+      <nav>
+        <a href="index.html" class="logo"><img src="логотип цветной без фона.png" alt="Точка Открытий" class="logo-img"></a>
+        <div class="nav-links">
+          <a href="info.html">О центре</a>
+          <a href="seansy.html">Сеансы</a>
+          <a href="podbor.html">Подбор курса</a>
+          <a href="proect.html">Проекты</a>
+          <a href="news.html">События</a>
+          <a href="contact.html">Контакты</a>
+          <a href="zap.html"><button class="btn btn-primary">Записаться</button></a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-header">
+    <div class="container">
+      <h1>Как проходят сеансы</h1>
+      <p>Памятка для родителей: что ожидать от занятия, как подготовиться и где посмотреть ближайшее расписание</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-title"><h2>Путь семьи от заявки до занятия</h2></div>
+      <div class="steps-grid">
+        <div class="step-card"><div class="step-num">1</div><h3>Заявка или звонок</h3><p>Оставьте заявку на сайте или позвоните координатору — мы уточним запрос и подберём специалиста.</p></div>
+        <div class="step-card"><div class="step-num">2</div><h3>Диагностика</h3><p>На первой встрече специалист знакомится с ребёнком и семьёй, формирует рекомендации и план.</p></div>
+        <div class="step-card"><div class="step-num">3</div><h3>Занятия</h3><p>Индивидуальные или групповые сеансы по выбранному направлению — логопед, психолог, раннее развитие.</p></div>
+        <div class="step-card"><div class="step-num">4</div><h3>Поддержка родителей</h3><p>Мы делимся рекомендациями для дома и отвечаем на вопросы между занятиями.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:#fff">
+    <div class="container">
+      <div class="section-title"><h2>Ближайшие сеансы</h2><p style="color:var(--gray)">Актуальное расписание публикуется координатором центра</p></div>
+      <div id="sessions-list" class="sessions-grid"><div class="loading">Загрузка расписания…</div></div>
+      <div class="cta-box">
+        <h3>Не знаете, с чего начать?</h3>
+        <p>Пройдите короткий тест — мы подберём направление для вашего ребёнка</p>
+        <div class="cta-actions">
+          <a href="podbor.html" class="btn btn-accent">Пройти тест</a>
+          <a href="zap.html" class="btn btn-outline-light">Записаться на приём</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="site-footer" class="site-footer"></footer>
+
+  <script src="js/site-config.js"></script>
+    <script src="js/site-footer.js"></script>
+  <script src="js/sessions-dynamic.js"></script>
+  <script src="js/ai-chat.js"></script>
+</body>
+</html>

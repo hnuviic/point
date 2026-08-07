@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Тест родителей — админка</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/admin/assets/admin.css" />
+  </head>
+  <body>
+    <div class="bg-gradient"></div>
+    <div class="admin-wrap">
+      <div class="admin-top">
+        <div class="brand"><div class="brand-badge">ТО</div><div><h1>Тест подбора направления</h1><p>Результаты с podbor.html</p></div></div>
+        <div class="top-actions">
+          <a class="btn btn-outline" href="/admin/home">← Кабинет</a>
+          <a class="btn btn-outline" href="/podbor.html" target="_blank">Открыть тест</a>
+          <form method="post" action="/admin/logout" style="margin:0"><button class="btn btn-dark" type="submit">Выйти</button></form>
+        </div>
+      </div>
+      <%- include('partials/admin-nav', { admin, active: 'quiz' }) %>
+
+      <div class="stats">
+        <% summary.forEach((s) => { %>
+        <div class="stat-card">
+          <div class="num"><%= s.c %></div>
+          <div class="label"><%= s.title || 'Без названия' %></div>
+        </div>
+        <% }) %>
+      </div>
+
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Дата</th>
+              <th>Родитель</th>
+              <th>Возраст ребёнка</th>
+              <th>Рекомендация</th>
+              <th class="hide-mobile">Баллы</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (!items.length) { %>
+            <tr><td colspan="5" class="empty">Пока никто не проходил тест — поделитесь ссылкой podbor.html</td></tr>
+            <% } %>
+            <% items.forEach((q) => { %>
+            <% let scores = {}; try { scores = JSON.parse(q.score_json || '{}').scores || {}; } catch(e) {} %>
+            <tr>
+              <td class="muted"><%= new Date(q.created_at).toLocaleString('ru-RU') %></td>
+              <td><%= q.parent_name || 'Анонимно' %></td>
+              <td><%= q.child_age || '—' %></td>
+              <td><strong><%= q.recommended_title || '—' %></strong></td>
+              <td class="hide-mobile muted"><%= Object.entries(scores).map(([k,v]) => k + ':' + v).join(', ') || '—' %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

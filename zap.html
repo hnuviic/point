@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запись на приём | Точка Открытий</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="zap.css">
+    <link rel="stylesheet" href="css/site-footer.css">
+</head>
+<body>
+<header id="header">
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <img src="логотип цветной без фона.png" alt="Точка Открытий" class="logo-img">
+                </a>
+                <div class="nav-links">
+                    <a href="info.html">О центре</a>
+                    <a href="seansy.html">Сеансы</a>
+                    <a href="podbor.html">Подбор курса</a>
+                    <a href="proect.html">Проекты</a>
+                    <a href="news.html">События</a>
+                    <a href="contact.html">Контакты</a>
+                    <a href="zap.html"><button class="btn btn-primary">Записаться</button></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="booking-page">
+            <div class="container">
+                <div class="booking-header">
+                    <h1>Запись на приём</h1>
+                    <p>Заполните простую форму, и наш координатор свяжется с вами для уточнения времени и деталей</p>
+                </div>
+
+                <div class="booking-grid">
+                    
+                    <div class="info-side">
+                        <ul class="benefits-list">
+                            <li>
+                                <div class="benefit-text">
+                                    <h4>Быстрый ответ</h4>
+                                    <p>Заявка сохраняется в базе центра — координатор перезвонит в течение 15 минут в рабочее время</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="benefit-text">
+                                    <h4>Первичная консультация</h4>
+                                    <p>Поможем выбрать нужного специалиста ещё до визита</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="benefit-text">
+                                    <h4>Конфиденциальность</h4>
+                                    <p>Ваши данные надежно защищены и не передаются третьим лицам</p>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="trust-block">
+                            <p><strong>Совет:</strong> Если вы не знаете, какой специалист вам нужен, просто напишите об этом в поле «Комментарий», и мы подберем вам маршрут.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-card">
+                        <div id="bookingFormContainer">
+                            <h3 class="form-title">Заполните данные</h3>
+                            <form id="bookingForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Ваше имя *</label>
+                                        <input type="text" name="name" class="form-control" placeholder="Например, Анна" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Телефон *</label>
+                                        <input type="tel" name="phone" class="form-control" placeholder="+7 (___) ___-__-__" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Имя ребёнка (необязательно)</label>
+                                    <input type="text" name="child_name" class="form-control" placeholder="Имя ребёнка">
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Направление *</label>
+                                        <select name="direction" class="form-control" required>
+                                            <option value="" disabled selected>Выберите услугу</option>
+                                            <option value="Комплексная диагностика">Комплексная диагностика</option>
+                                            <option value="Коррекционные занятия">Коррекционные занятия</option>
+                                            <option value="Консультация для родителей">Консультация для родителей</option>
+                                            <option value="Другое">Другое</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Желаемая дата</label>
+                                        <input type="date" name="desired_date" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Комментарий</label>
+                                    <textarea name="comment" class="form-control" placeholder="Кратко опишите ситуацию или задайте вопрос..."></textarea>
+                                </div>
+
+                                <div class="checkbox-wrapper">
+                                    <input type="checkbox" name="consent" value="1" id="privacy" required checked>
+                                    <label for="privacy">Я согласен на обработку персональных данных и принимаю политику конфиденциальности</label>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-submit">Отправить заявку</button>
+                            </form>
+                        </div>
+
+                        <div id="successMessage" class="success-message">
+                            <div class="success-icon">✅</div>
+                            <h3>Заявка отправлена!</h3>
+                            <p>Спасибо за доверие. Наш координатор позвонит вам в ближайшее время для подтверждения записи.</p>
+                            <a href="index.html" class="btn btn-outline" style="margin-top: 24px;">Вернуться на главную</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="steps-section">
+            <div class="container">
+                <div class="section-header" style="text-align: center;">
+                    <h2 style="font-size: 2rem; color: var(--primary);">Как проходит запись</h2>
+                </div>
+                <div class="steps-grid">
+                    <div class="step-item">
+                        <div class="step-num">1</div>
+                        <h4>Заявка</h4>
+                        <p>Вы оставляете заявку на сайте</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">2</div>
+                        <h4>Звонок</h4>
+                        <p>Мы уточняем удобное время</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">3</div>
+                        <h4>Подготовка</h4>
+                        <p>Направляем памятку перед визитом</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">4</div>
+                        <h4>Встреча</h4>
+                        <p>Приходите в назначенное время</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+        <footer id="site-footer" class="site-footer"></footer>
+
+    <script src="js/site-config.js"></script>
+    <script src="js/site-footer.js"></script>
+    <script>
+        const form = document.getElementById('bookingForm');
+        const formContainer = document.getElementById('bookingFormContainer');
+        const successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = form.querySelector('.btn-submit');
+            const originalText = btn.innerText;
+
+            btn.innerText = 'Отправка...';
+            btn.disabled = true;
+
+            try {
+                const payload = {
+                    name: form.elements['name'].value,
+                    phone: form.elements['phone'].value,
+                    child_name: form.elements['child_name'].value,
+                    direction: form.elements['direction'].value,
+                    desired_date: form.elements['desired_date'].value,
+                    comment: form.elements['comment'].value,
+                    consent: form.elements['consent']?.checked ? 1 : 0,
+                };
+
+                const resp = await fetch(window.siteApiUrl((window.SITE_API && window.SITE_API.booking) || '/api/booking'), {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!resp.ok) throw new Error('Ошибка отправки');
+
+                // Hide form, show success
+                formContainer.style.display = 'none';
+                successMessage.style.display = 'block';
+            } catch (err) {
+                alert('Не удалось отправить заявку: ' + (err?.message || err));
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+    <script src="js/ai-chat.js" defer></script>
+</body>
+</html>

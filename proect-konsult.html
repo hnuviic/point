@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Консультирование семей | Точка Открытий</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="proect.css">
+    <link rel="stylesheet" href="css/site-footer.css">
+    <style>
+        .project-detail { padding: 48px 0 80px; }
+        .project-detail h1 { color: var(--primary); margin-bottom: 16px; }
+        .project-detail .lead { color: var(--gray); max-width: 720px; margin-bottom: 32px; }
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            margin: 32px 0;
+        }
+        .project-gallery img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #E0F2F7, #F2D9E4);
+        }
+        .back-link { display: inline-block; margin-bottom: 24px; color: var(--accent); font-weight: 600; }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <img src="логотип цветной без фона.png" alt="Точка Открытий" class="logo-img">
+                </a>
+                <div class="nav-links">
+                    <a href="info.html">О центре</a>
+                    <a href="seansy.html">Сеансы</a>
+                    <a href="podbor.html">Подбор курса</a>
+                    <a href="proect.html">Проекты</a>
+                    <a href="news.html">События</a>
+                    <a href="contact.html">Контакты</a>
+                    <a href="zap.html"><button class="btn btn-primary">Записаться</button></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="project-detail">
+        <div class="container">
+            <a href="proect.html" class="back-link">← Все проекты</a>
+            <span class="project-category">Социальная поддержка</span>
+            <h1>Консультирование семей</h1>
+            <p class="lead">Проект бесплатных консультаций для семей, воспитывающих детей с особыми образовательными потребностями. Мы помогаем родителям разобраться в возможностях обучения, составляем индивидуальный образовательный маршрут ребёнка и сопровождаем семью на пути к эффективным решениям.</p>
+            <p>Записаться на консультацию можно на странице <a href="zap.html">«Записаться»</a> или по телефону <a href="tel:89877969272">8 (987) 796-92-72</a>.</p>
+
+            <h2 style="color: var(--primary); margin-top: 40px; font-size: 1.5rem;">Фото с проекта</h2>
+            <div class="project-gallery">
+                <img src="images/team/konsult-1.jpg" alt="Консультирование семей" loading="lazy">
+                <img src="images/team/konsult-2.jpg" alt="Консультирование семей" loading="lazy">
+                <img src="images/team/konsult-3.jpg" alt="Консультирование семей" loading="lazy">
+                <img src="images/team/konsult-4.jpg" alt="Консультирование семей" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <footer id="site-footer" class="site-footer"></footer>
+    <script src="js/site-config.js"></script>
+    <script src="js/site-footer.js"></script>
+    <script src="js/ai-chat.js" defer></script>
+</body>
+</html>

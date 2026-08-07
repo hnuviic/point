@@ -1,0 +1,7 @@
+# Защита базы и конфига
+<FilesMatch "^(data\.sqlite|config\.php|\.env)$">
+    Require all denied
+</FilesMatch>
+
+# Главная страница
+DirectoryIndex index.html index.php

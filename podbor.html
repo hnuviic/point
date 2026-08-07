@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Подбор направления для ребёнка | Точка Открытий</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="podbor.css">
+    <link rel="stylesheet" href="css/site-footer.css">
+  <link rel="stylesheet" href="css/ai-chat.css">
+</head>
+<body>
+  <header id="header">
+    <div class="container">
+      <nav>
+        <a href="index.html" class="logo"><img src="логотип цветной без фона.png" alt="Точка Открытий" class="logo-img"></a>
+        <div class="nav-links">
+          <a href="info.html">О центре</a>
+          <a href="seansy.html">Сеансы</a>
+          <a href="podbor.html">Подбор курса</a>
+          <a href="proect.html">Проекты</a>
+          <a href="news.html">События</a>
+          <a href="contact.html">Контакты</a>
+          <a href="zap.html"><button class="btn btn-primary">Записаться</button></a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-header">
+    <div class="container">
+      <h1>Подбор направления</h1>
+      <p>Короткий тест для родителей — 5 вопросов о ребёнке. Мы подскажем, с какого направления лучше начать</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container quiz-wrap">
+      <div class="quiz-progress" id="quiz-progress"><div class="quiz-progress-bar" id="quiz-bar"></div></div>
+
+      <div id="quiz-start" class="quiz-card quiz-start">
+        <h2>Перед началом</h2>
+        <p style="color:var(--gray);margin-bottom:16px">Ответы помогут координатору быстрее понять запрос. Имя необязательно.</p>
+        <input type="text" id="parent-name" placeholder="Ваше имя (необязательно)" />
+        <input type="text" id="child-age" placeholder="Возраст ребёнка, например: 4 года" />
+        <label class="consent-row">
+          <input type="checkbox" id="quiz-consent" />
+          <span>Согласен(на) на обработку данных в соответствии с политикой центра</span>
+        </label>
+        <button class="btn btn-primary" id="quiz-begin" type="button">Начать тест</button>
+      </div>
+
+      <div id="quiz-question" class="quiz-card hidden"></div>
+      <div id="quiz-result" class="quiz-card result-card hidden"></div>
+    </div>
+  </section>
+
+  <footer id="site-footer" class="site-footer"></footer>
+
+  <script src="js/site-config.js"></script>
+  <script src="js/site-footer.js"></script>
+  <script src="js/quiz-data.js"></script>
+  <script src="js/parent-quiz.js"></script>
+  <script src="js/ai-chat.js"></script>
+</body>
+</html>

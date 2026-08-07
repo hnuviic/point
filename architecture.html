@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Архитектура — Точка Открытий</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #FAFBFC;
+      color: #0A0F14;
+      padding: 40px 48px;
+    }
+
+    .caption {
+      font-size: 11px;
+      color: #6B7280;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #145867;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #6B7280;
+      margin-bottom: 32px;
+    }
+
+    .diagram {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .layer {
+      width: 100%;
+      border: 2px solid rgba(20, 88, 103, 0.2);
+      border-radius: 14px;
+      background: #fff;
+      padding: 16px 20px;
+      position: relative;
+    }
+
+    .layer-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #145867;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .layer-title .file {
+      font-weight: 500;
+      text-transform: none;
+      color: #C22660;
+      font-size: 12px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .box {
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+      min-width: 120px;
+      line-height: 1.35;
+    }
+
+    .box small {
+      display: block;
+      font-size: 10px;
+      font-weight: 400;
+      opacity: 0.85;
+      margin-top: 4px;
+    }
+
+    .client { background: #E8F4F6; color: #145867; border: 1px solid #2C8B9E; }
+    .app { background: #145867; color: #fff; border: 1px solid #145867; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px; padding: 14px 24px; }
+    .routes { background: #2C8B9E; color: #fff; border: 1px solid #2C8B9E; }
+    .ctrl { background: #F2D9E4; color: #8B1A45; border: 1px solid #C22660; }
+    .db { background: #145867; color: #fff; border: 1px solid #145867; }
+    .view { background: #fff; color: #145867; border: 2px solid #2C8B9E; }
+    .mw { background: #FAFBFC; color: #6B7280; border: 1px dashed #6B7280; font-size: 11px; }
+
+    .arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #2C8B9E;
+      font-size: 22px;
+      line-height: 1;
+      padding: 4px 0;
+    }
+
+    .arrow span {
+      font-size: 10px;
+      color: #6B7280;
+      margin-top: 2px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .split .layer { margin: 0; }
+
+    .legend {
+      margin-top: 28px;
+      max-width: 920px;
+      margin-left: auto;
+      margin-right: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      font-size: 11px;
+      color: #6B7280;
+    }
+
+    .legend div {
+      background: #fff;
+      border: 1px solid rgba(20, 88, 103, 0.12);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .legend strong { color: #145867; display: block; margin-bottom: 4px; font-size: 12px; }
+
+    .figure-note {
+      margin-top: 28px;
+      text-align: center;
+      font-size: 13px;
+      color: #6B7280;
+    }
+
+    .figure-note strong { color: #0A0F14; }
+  </style>
+</head>
+<body>
+  <p class="caption">АНО «Точка Открытий» · Node.js / Express</p>
+  <h1>Архитектура веб-приложения</h1>
+  <p class="subtitle">Иерархия модулей: точка входа → маршруты → обработчики → база данных / представления<br>
+  <em>В проекте роль App.js выполняет файл <strong>server.js</strong></em></p>
+
+  <div class="diagram">
+
+    <!-- Client -->
+    <div class="layer">
+      <div class="layer-title">Клиент (браузер)</div>
+      <div class="row">
+        <div class="box client">HTML-страницы<small>index, info, contact, zap, news…</small></div>
+        <div class="box client">JavaScript<small>site-config.js, ai-chat.js</small></div>
+        <div class="box client">CSS / медиа<small>style.css, изображения</small></div>
+      </div>
+    </div>
+
+    <div class="arrow">↓ <span>HTTP-запросы (GET / POST)</span></div>
+
+    <!-- App -->
+    <div class="layer" style="text-align:center; background:#f0f7f8;">
+      <div class="box app" style="display:inline-block; min-width:280px;">
+        server.js <span style="font-weight:400; opacity:.9">(Express App)</span>
+        <small style="display:block; font-weight:400; font-size:11px; margin-top:6px; opacity:.9">Инициализация, middleware, запуск сервера :3000</small>
+      </div>
+      <div class="row" style="margin-top:12px;">
+        <div class="box mw">express.json()</div>
+        <div class="box mw">cors</div>
+        <div class="box mw">express-session</div>
+        <div class="box mw">dotenv / bcrypt</div>
+      </div>
+    </div>
+
+    <div class="arrow">↓ <span>маршрутизация</span></div>
+
+    <!-- Routes -->
+    <div class="layer">
+      <div class="layer-title">Routes <span class="file">(маршруты в server.js)</span></div>
+      <div class="row">
+        <div class="box routes">API Routes<small>/api/contact<br>/api/booking<br>/api/chat<br>/api/health</small></div>
+        <div class="box routes">Admin Routes<small>/admin/login<br>/admin<br>/admin/logout<br>/admin/requests/…</small></div>
+        <div class="box routes">Static Routes<small>express.static()<br>*.html, css, js, images</small></div>
+      </div>
+    </div>
+
+    <div class="arrow">↓ <span>вызов обработчиков</span></div>
+
+    <!-- Controllers -->
+    <div class="layer">
+      <div class="layer-title">Controllers <span class="file">(обработчики запросов)</span></div>
+      <div class="row">
+        <div class="box ctrl">Contact Handler<small>валидация формы<br>INSERT contact_requests</small></div>
+        <div class="box ctrl">Booking Handler<small>валидация записи<br>INSERT booking_requests</small></div>
+        <div class="box ctrl">Chat Handler<small>локальные ответы<br>или OpenAI API</small></div>
+        <div class="box ctrl">Admin Handler<small>авторизация<br>список заявок<br>смена статуса</small></div>
+        <div class="box ctrl">Static Handler<small>отдача HTML/CSS/JS</small></div>
+      </div>
+    </div>
+
+    <div class="arrow">↓ <span>чтение / запись данных</span></div>
+
+    <!-- DB / Views -->
+    <div class="split">
+      <div class="layer">
+        <div class="layer-title">DB — SQLite</div>
+        <div class="row">
+          <div class="box db">data.sqlite<small>contact_requests</small></div>
+          <div class="box db">data.sqlite<small>booking_requests</small></div>
+          <div class="box db">data.sqlite<small>admin_users</small></div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <div class="box mw" style="flex:1;">better-sqlite3</div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="layer-title">Views — представления</div>
+        <div class="row">
+          <div class="box view">EJS-шаблоны<small>views/admin.ejs<br>views/admin-login.ejs</small></div>
+          <div class="box view">Статические HTML<small>публичные страницы сайта</small></div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <div class="box mw" style="flex:1;">res.render() / res.json() / sendFile</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="legend">
+    <div><strong>App (server.js)</strong>Точка входа приложения: подключение модулей, middleware, регистрация маршрутов</div>
+    <div><strong>Routes</strong>Определяют URL и связывают запрос с обработчиком (REST API, админка, статика)</div>
+    <div><strong>Controllers</strong>Бизнес-логика: проверка данных, работа с БД, формирование ответа</div>
+  </div>
+
+  <p class="figure-note"><strong>Рисунок 4.7</strong> – Архитектура веб-приложения и иерархия модулей</p>
+</body>
+</html>

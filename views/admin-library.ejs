@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Библиотека — админка</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/admin/assets/admin.css" />
+  </head>
+  <body>
+    <div class="bg-gradient"></div>
+    <div class="admin-wrap">
+      <div class="admin-top">
+        <div class="brand"><div class="brand-badge">ТО</div><div><h1>Библиотека</h1><p>Методические материалы</p></div></div>
+        <div class="top-actions">
+          <a class="btn btn-outline" href="/admin/home">← Кабинет</a>
+          <form method="post" action="/admin/logout" style="margin:0"><button class="btn btn-dark" type="submit">Выйти</button></form>
+        </div>
+      </div>
+      <%- include('partials/admin-nav', { admin, active: 'library' }) %>
+
+      <div class="card" style="margin-bottom:14px;padding:18px">
+        <h3 style="margin:0 0 12px">Добавить материал</h3>
+        <form method="post" action="/admin/library" class="form-grid">
+          <input name="title" placeholder="Название" required style="grid-column:1/-1" />
+          <textarea name="description" rows="3" placeholder="Краткое описание" style="grid-column:1/-1"></textarea>
+          <input name="link" placeholder="Ссылка на файл (PDF, Google Drive…)" style="grid-column:1/-1" />
+          <% if (admin.role === 'specialist') { %>
+          <p class="muted" style="grid-column:1/-1;margin:0">После отправки координатор проверит и опубликует материал.</p>
+          <% } %>
+          <button class="btn btn-primary" type="submit">Отправить</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <table>
+          <thead><tr><th>Дата</th><th>Материал</th><th>Автор</th><th>Статус</th><th></th></tr></thead>
+          <tbody>
+            <% items.forEach((m) => { %>
+            <tr>
+              <td class="muted"><%= new Date(m.created_at).toLocaleDateString('ru-RU') %></td>
+              <td>
+                <strong><%= m.title %></strong>
+                <div class="muted"><%= m.description || '' %></div>
+                <% if (m.link) { %><a href="<%= m.link %>" target="_blank" rel="noopener">Открыть файл</a><% } %>
+              </td>
+              <td class="muted"><%= m.author_name || '—' %></td>
+              <td><%= m.status === 'published' ? 'Опубликован' : (m.status === 'pending' ? 'На проверке' : m.status) %></td>
+              <td>
+                <% if ((admin.role === 'admin' || admin.role === 'coordinator') && m.status === 'pending') { %>
+                <form method="post" action="/admin/library/<%= m.id %>/approve">
+                  <button class="btn btn-primary" type="submit">Одобрить</button>
+                </form>
+                <% } %>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

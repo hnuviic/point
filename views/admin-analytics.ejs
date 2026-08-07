@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Аналитика — админка</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/admin/assets/admin.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <div class="bg-gradient"></div>
+    <div class="admin-wrap">
+      <div class="admin-top">
+        <div class="brand"><div class="brand-badge">ТО</div><div><h1>Аналитика</h1><p>Заявки, тесты родителей, ИИ-помощник</p></div></div>
+        <div class="top-actions">
+          <a class="btn btn-outline" href="/admin/home">← Кабинет</a>
+          <form method="post" action="/admin/logout" style="margin:0"><button class="btn btn-dark" type="submit">Выйти</button></form>
+        </div>
+      </div>
+      <%- include('partials/admin-nav', { admin, active: 'analytics' }) %>
+
+      <div class="stats">
+        <div class="stat-card"><div class="num"><%= data.statusBreakdown.new %></div><div class="label">Новые заявки</div></div>
+        <div class="stat-card"><div class="num"><%= data.statusBreakdown.in_progress %></div><div class="label">В работе</div></div>
+        <div class="stat-card"><div class="num"><%= data.statusBreakdown.done %></div><div class="label">Обработано</div></div>
+        <div class="stat-card"><div class="num"><%= chatStats.week %></div><div class="label">Диалогов с ИИ / 7 дн.</div></div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="card chart-card">
+          <h3>Заявки за 14 дней</h3>
+          <canvas id="chartRequests"></canvas>
+        </div>
+        <div class="card chart-card">
+          <h3>Статусы заявок</h3>
+          <canvas id="chartStatus"></canvas>
+        </div>
+        <div class="card chart-card">
+          <h3>Рекомендации теста родителей</h3>
+          <canvas id="chartQuiz"></canvas>
+        </div>
+        <div class="card chart-card">
+          <h3>Направления записи</h3>
+          <canvas id="chartDirections"></canvas>
+        </div>
+      </div>
+
+      <% if (data.specialistLoad && data.specialistLoad.length) { %>
+      <div class="card panel-section">
+        <h3>Нагрузка специалистов (активные записи)</h3>
+        <table>
+          <thead><tr><th>Специалист</th><th>Записей в работе</th></tr></thead>
+          <tbody>
+            <% data.specialistLoad.forEach((r) => { %>
+            <tr><td><%= r.name %></td><td><strong><%= r.c %></strong></td></tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <% } %>
+    </div>
+
+    <script>
+      const chartData = <%- JSON.stringify(data) %>;
+      const palette = ['#145867', '#2c8b9e', '#c22660', '#f2a65a', '#6b7280', '#166534'];
+
+      new Chart(document.getElementById('chartRequests'), {
+        type: 'line',
+        data: {
+          labels: chartData.requestsByDay.map((d) => d.date.slice(5)),
+          datasets: [
+            { label: 'Контакты', data: chartData.requestsByDay.map((d) => d.contacts), borderColor: palette[0], tension: 0.3 },
+            { label: 'Записи', data: chartData.requestsByDay.map((d) => d.bookings), borderColor: palette[2], tension: 0.3 },
+          ],
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } } },
+      });
+
+      new Chart(document.getElementById('chartStatus'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Новые', 'В работе', 'Готово'],
+          datasets: [{ data: [chartData.statusBreakdown.new, chartData.statusBreakdown.in_progress, chartData.statusBreakdown.done], backgroundColor: palette }],
+        },
+        options: { responsive: true },
+      });
+
+      new Chart(document.getElementById('chartQuiz'), {
+        type: 'bar',
+        data: {
+          labels: chartData.quizByCourse.map((d) => d.title || '—'),
+          datasets: [{ label: 'Прохождений', data: chartData.quizByCourse.map((d) => d.c), backgroundColor: palette[1] }],
+        },
+        options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } } },
+      });
+
+      new Chart(document.getElementById('chartDirections'), {
+        type: 'bar',
+        data: {
+          labels: chartData.topDirections.map((d) => d.title || '—'),
+          datasets: [{ data: chartData.topDirections.map((d) => d.c), backgroundColor: palette[3] }],
+        },
+        options: { responsive: true, plugins: { legend: { display: false } } },
+      });
+    </script>
+  </body>
+</html>

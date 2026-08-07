@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Админка — Вход | Точка Открытий</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/admin/assets/admin.css" />
+  </head>
+  <body>
+    <div class="bg-gradient"></div>
+
+    <div class="admin-wrap">
+      <div class="login-card">
+        <h1>Вход в админку</h1>
+        <p>Локальный сервер: <code>http://localhost:3000</code></p>
+
+        <form method="post" action="/admin/login">
+          <label>Логин</label>
+          <input name="username" type="text" value="<%= username %>" required />
+
+          <label>Пароль</label>
+          <input name="password" type="password" required />
+
+          <button class="btn btn-primary" type="submit" style="width: 100%; margin-top: 18px">Войти</button>
+        </form>
+
+        <% if (error) { %>
+        <div class="error"><%= error %></div>
+        <% } %>
+
+        <p class="muted" style="margin-top: 16px">
+          Логин и пароль — из файла <code>.env</code> (<code>ADMIN_USERNAME</code>, <code>ADMIN_PASSWORD</code>).
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

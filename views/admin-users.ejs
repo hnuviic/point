@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Админка — Пользователи | Точка Открытий</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/admin/assets/admin.css" />
+  </head>
+  <body>
+    <div class="bg-gradient"></div>
+
+    <div class="admin-wrap">
+      <div class="admin-top">
+        <div class="brand">
+          <div class="brand-badge">ТО</div>
+          <div>
+            <h1>Пользователи</h1>
+            <p>Вошли как <%= admin.username %> (<%= admin.role %>)</p>
+          </div>
+        </div>
+        <div class="top-actions">
+          <a class="btn btn-outline" href="/admin/home">← Кабинет</a>
+          <form method="post" action="/admin/logout" style="margin: 0">
+            <button class="btn btn-dark" type="submit">Выйти</button>
+          </form>
+        </div>
+      </div>
+
+      <%- include('partials/admin-nav', { admin, active: 'users' }) %>
+
+      <div class="card" style="margin-bottom: 14px">
+        <h3 style="margin: 0 0 10px">Добавить пользователя</h3>
+        <form method="post" action="/admin/users" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px">
+          <div>
+            <label style="display:block; font-weight:700; margin-bottom:6px">Логин</label>
+            <input name="username" required style="width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(20,88,103,0.25)" />
+          </div>
+          <div>
+            <label style="display:block; font-weight:700; margin-bottom:6px">Пароль</label>
+            <input name="password" type="password" required style="width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(20,88,103,0.25)" />
+          </div>
+          <div>
+            <label style="display:block; font-weight:700; margin-bottom:6px">Роль</label>
+            <select name="role" required style="width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(20,88,103,0.25)">
+              <option value="coordinator">Координатор</option>
+              <option value="specialist">Специалист</option>
+              <option value="admin">Администратор</option>
+            </select>
+          </div>
+          <div style="grid-column: 1 / span 2">
+            <label style="display:block; font-weight:700; margin-bottom:6px">ФИО (необязательно)</label>
+            <input name="full_name" style="width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(20,88,103,0.25)" />
+          </div>
+          <div style="display:flex; align-items:end">
+            <button class="btn btn-primary" type="submit" style="width:100%">Создать</button>
+          </div>
+        </form>
+
+        <% if (error) { %>
+        <div class="error" style="margin-top: 10px"><%= error %></div>
+        <% } %>
+      </div>
+
+      <div class="card">
+        <h3 style="margin: 0 0 10px">Список пользователей</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Логин</th>
+              <th>ФИО</th>
+              <th>Роль</th>
+              <th>Создан</th>
+              <th style="width:220px">Сброс пароля</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% users.forEach((u) => { %>
+            <tr>
+              <td><%= u.id %></td>
+              <td><strong><%= u.username %></strong></td>
+              <td class="muted"><%= u.full_name || '—' %></td>
+              <td><%= u.role %></td>
+              <td class="muted"><%= new Date(u.created_at).toLocaleString('ru-RU') %></td>
+              <td>
+                <% if (u.id !== admin.id) { %>
+                <form method="post" action="/admin/users/<%= u.id %>/reset" style="display:flex;gap:6px">
+                  <input name="password" type="password" placeholder="Новый пароль" minlength="6" required style="flex:1;padding:8px 10px;border-radius:10px;border:1px solid rgba(20,88,103,0.25)" />
+                  <button class="btn btn-outline btn-sm" type="submit">Сбросить</button>
+                </form>
+                <% } else { %>
+                <span class="muted">—</span>
+                <% } %>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
+

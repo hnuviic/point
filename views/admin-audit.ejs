@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Журнал — админка</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/admin/assets/admin.css" />
+  </head>
+  <body>
+    <div class="bg-gradient"></div>
+    <div class="admin-wrap">
+      <div class="admin-top">
+        <div class="brand"><div class="brand-badge">ТО</div><div><h1>Журнал системы</h1><p>Аудит действий сотрудников и диалоги ИИ</p></div></div>
+        <div class="top-actions">
+          <a class="btn btn-outline" href="/admin/home">← Кабинет</a>
+          <form method="post" action="/admin/logout" style="margin:0"><button class="btn btn-dark" type="submit">Выйти</button></form>
+        </div>
+      </div>
+      <%- include('partials/admin-nav', { admin, active: 'audit' }) %>
+
+      <div class="card panel-section">
+        <h3>Действия сотрудников (последние 200)</h3>
+        <table>
+          <thead><tr><th>Время</th><th>Пользователь</th><th>Действие</th><th>Объект</th><th>Детали</th></tr></thead>
+          <tbody>
+            <% items.forEach((a) => { %>
+            <tr>
+              <td class="muted"><%= new Date(a.created_at).toLocaleString('ru-RU') %></td>
+              <td><%= a.username %></td>
+              <td><code><%= a.action %></code></td>
+              <td class="muted"><%= a.entity_type ? a.entity_type + ' #' + (a.entity_id || '') : '—' %></td>
+              <td class="muted"><%= a.details || '—' %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card panel-section">
+        <h3>Диалоги ИИ-помощника (последние 50)</h3>
+        <table>
+          <thead><tr><th>Время</th><th>Вопрос</th><th>Ответ</th><th>Источник</th></tr></thead>
+          <tbody>
+            <% chatLogs.forEach((c) => { %>
+            <tr>
+              <td class="muted"><%= new Date(c.created_at).toLocaleString('ru-RU') %></td>
+              <td><%= c.message.slice(0,120) %><%= c.message.length > 120 ? '…' : '' %></td>
+              <td class="muted"><%= (c.reply || '').slice(0,160) %><%= (c.reply || '').length > 160 ? '…' : '' %></td>
+              <td><span class="tag <%= c.source === 'openai' ? 'booking' : 'contact' %>"><%= c.source || 'local' %></span></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

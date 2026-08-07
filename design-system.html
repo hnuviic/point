@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Дизайн-система — Точка Открытий</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #FAFBFC;
+      color: #0A0F14;
+      padding: 48px 56px;
+      line-height: 1.5;
+    }
+
+    .caption {
+      font-size: 11px;
+      color: #6B7280;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #145867;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #6B7280;
+      margin-bottom: 40px;
+    }
+
+    section {
+      margin-bottom: 36px;
+    }
+
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #145867;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #F2D9E4;
+    }
+
+    .palette {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .swatch {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(20, 88, 103, 0.12);
+      background: #fff;
+    }
+
+    .swatch-color {
+      height: 72px;
+    }
+
+    .swatch-info {
+      padding: 12px 14px;
+    }
+
+    .swatch-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      color: #0A0F14;
+      margin-bottom: 4px;
+    }
+
+    .swatch-hex {
+      font-size: 12px;
+      color: #6B7280;
+      font-family: 'Inter', monospace;
+    }
+
+    .swatch-var {
+      font-size: 11px;
+      color: #C22660;
+      margin-top: 4px;
+    }
+
+    .type-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .type-card {
+      background: #fff;
+      border: 1px solid rgba(20, 88, 103, 0.12);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .type-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #C22660;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .type-heading-demo h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 32px;
+      color: #145867;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .type-heading-demo h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 20px;
+      color: #2C8B9E;
+      margin-bottom: 12px;
+    }
+
+    .type-body-demo p {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      color: #0A0F14;
+      margin-bottom: 10px;
+    }
+
+    .type-body-demo .small {
+      font-size: 14px;
+      color: #6B7280;
+    }
+
+    .type-meta {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #F2D9E4;
+      font-size: 12px;
+      color: #6B7280;
+    }
+
+    .type-meta strong {
+      color: #145867;
+    }
+
+    .pair-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(20, 88, 103, 0.12);
+      font-size: 13px;
+    }
+
+    .pair-table th,
+    .pair-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #F2D9E4;
+    }
+
+    .pair-table th {
+      font-family: 'Space Grotesk', sans-serif;
+      background: #145867;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .pair-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .figure-note {
+      margin-top: 32px;
+      text-align: center;
+      font-size: 13px;
+      color: #6B7280;
+      font-style: italic;
+    }
+
+    .figure-note strong {
+      color: #0A0F14;
+      font-style: normal;
+    }
+  </style>
+</head>
+<body>
+  <p class="caption">АНО «Точка Открытий» · Веб-сайт</p>
+  <h1>Дизайн-система</h1>
+  <p class="subtitle">Цветовая палитра и типографика (CSS-переменные проекта)</p>
+
+  <section>
+    <h2>Цветовая палитра</h2>
+    <div class="palette">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#145867"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Primary</div>
+          <div class="swatch-hex">#145867</div>
+          <div class="swatch-var">--primary</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#2C8B9E"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Primary Light</div>
+          <div class="swatch-hex">#2C8B9E</div>
+          <div class="swatch-var">--primary-light</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#C22660"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Accent</div>
+          <div class="swatch-hex">#C22660</div>
+          <div class="swatch-var">--accent</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#F2D9E4"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Accent Light</div>
+          <div class="swatch-hex">#F2D9E4</div>
+          <div class="swatch-var">--accent-light</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#0A0F14"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Dark</div>
+          <div class="swatch-hex">#0A0F14</div>
+          <div class="swatch-var">--dark</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#FAFBFC; border-bottom:1px solid #eee"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Light</div>
+          <div class="swatch-hex">#FAFBFC</div>
+          <div class="swatch-var">--light</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#6B7280"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Gray</div>
+          <div class="swatch-hex">#6B7280</div>
+          <div class="swatch-var">--gray</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:linear-gradient(135deg,#2C8B9E,#C22660)"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Gradient</div>
+          <div class="swatch-hex">Primary Light → Accent</div>
+          <div class="swatch-var">кнопки, акценты</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Типографика</h2>
+    <div class="type-grid">
+      <div class="type-card">
+        <div class="type-label">Заголовки · Space Grotesk</div>
+        <div class="type-heading-demo">
+          <h3>Открываем возможности</h3>
+          <h4>Наши услуги и проекты</h4>
+        </div>
+        <div class="type-meta">
+          <strong>Шрифт:</strong> Space Grotesk<br>
+          <strong>Начертания:</strong> 400, 500, 600, 700<br>
+          <strong>Элементы:</strong> h1–h6, логотип, кнопки, метки разделов
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-label">Основной текст · Inter</div>
+        <div class="type-body-demo">
+          <p>Комплексная диагностика и поддержка развития детей с особыми образовательными потребностями.</p>
+          <p class="small">Вспомогательный текст, подписи, формы — Inter 400–600, line-height 1.6–1.7</p>
+        </div>
+        <div class="type-meta">
+          <strong>Шрифт:</strong> Inter<br>
+          <strong>Начертания:</strong> 300, 400, 500, 600<br>
+          <strong>Элементы:</strong> body, параграфы, формы, футер
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Шрифтовые пары и применение</h2>
+    <table class="pair-table">
+      <thead>
+        <tr>
+          <th>Элемент интерфейса</th>
+          <th>Шрифт</th>
+          <th>Размер / вес</th>
+          <th>Цвет</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Hero-заголовок (h1)</td>
+          <td>Space Grotesk</td>
+          <td>крупный / 700</td>
+          <td>#145867, акцент #C22660</td>
+        </tr>
+        <tr>
+          <td>Заголовки разделов (h2)</td>
+          <td>Space Grotesk</td>
+          <td>2–3.5 rem / 700</td>
+          <td>#145867</td>
+        </tr>
+        <tr>
+          <td>Метки разделов (.section-label)</td>
+          <td>Space Grotesk</td>
+          <td>0.9 rem / 600, uppercase</td>
+          <td>#C22660</td>
+        </tr>
+        <tr>
+          <td>Основной текст</td>
+          <td>Inter</td>
+          <td>1 rem / 400</td>
+          <td>#0A0F14</td>
+        </tr>
+        <tr>
+          <td>Вторичный текст</td>
+          <td>Inter</td>
+          <td>0.9–0.95 rem / 400</td>
+          <td>#6B7280</td>
+        </tr>
+        <tr>
+          <td>Кнопки</td>
+          <td>Inter (наследование)</td>
+          <td>0.95 rem / 600</td>
+          <td>фон #145867, текст #FFFFFF</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <p class="figure-note"><strong>Рисунок 4.2</strong> – Дизайн-система: цветовая палитра и типографика</p>
+</body>
+</html>

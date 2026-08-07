@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проекты | Точка Открытий</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="proect.css">
+    <link rel="stylesheet" href="css/site-footer.css">
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <img src="логотип цветной без фона.png" alt="Точка Открытий" class="logo-img">
+                </a>
+                <div class="nav-links">
+                    <a href="info.html">О центре</a>
+                    <a href="seansy.html">Сеансы</a>
+                    <a href="podbor.html">Подбор курса</a>
+                    <a href="proect.html">Проекты</a>
+                    <a href="news.html">События</a>
+                    <a href="contact.html">Контакты</a>
+                    <a href="zap.html"><button class="btn btn-primary">Записаться</button></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Наши проекты и инициативы</h1>
+            <p>Реализуем программы, которые меняют жизнь детей и семей к лучшему</p>
+            
+            <div class="filter-wrapper">
+                <button class="filter-btn active" data-filter="all">Все проекты</button>
+                <button class="filter-btn" data-filter="education">Образование</button>
+                <button class="filter-btn" data-filter="social">Социальная поддержка</button>
+                <button class="filter-btn" data-filter="partner">Партнёрские</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="projects-section">
+        <div class="container">
+            <div class="projects-grid">
+                
+                <div class="project-card fade-in" data-category="education">
+                    <span class="project-status status-active">Активный</span>
+                    <div class="project-body">
+                        <span class="project-category">Образование</span>
+                        <h3>Ресурсный класс</h3>
+                        <p>Мы обеспечиваем профессиональное кураторство ресурсных классов в школе № 91 и школе-интернате № 4 города Оренбурга. Наша команда помогает организовать эффективное обучение и социализацию детей с особыми образовательными потребностями, чтобы каждый ребёнок получил необходимую поддержку прямо в общеобразовательной среде.</p>
+                        <a href="contact.html" class="project-link">Связаться с нами →</a>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in" data-category="social">
+                    <span class="project-status status-active">Активный</span>
+                    <div class="project-body">
+                        <span class="project-category">Социальная поддержка</span>
+                        <h3>Консультирование семей</h3>
+                        <p>Проект бесплатных консультаций для семей, воспитывающих детей с особыми образовательными потребностями. Помогаем родителям разобраться в возможностях обучения, составляем индивидуальный образовательный маршрут и сопровождаем семью.</p>
+                        <a href="proect-konsult.html" class="project-link">Подробнее о проекте →</a>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in" data-category="partner">
+                    <span class="project-status status-partner">Партнёрский</span>
+                    <div class="project-body">
+                        <span class="project-category">Партнёрская программа</span>
+                        <h3>«Ранний старт»</h3>
+                        <p>Совместно с АНО «Росток Оренбуржья»: работа внешнего эксперта по вопросам ранней помощи детям в возрасте от 0 до 3 лет (диагностика, разработка маршрута).</p>
+                        <a href="contact.html" class="project-link">Узнать детали →</a>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in" data-category="education">
+                    <span class="project-status status-active">Активный</span>
+                    <div class="project-body">
+                        <span class="project-category">Образование</span>
+                        <h3>Педагогическая навигация</h3>
+                        <p>Системная помощь педагогам и специалистам образовательных учреждений в вопросах разработки и внедрения адаптированных основных общеобразовательных программ.</p>
+                        <a href="contact.html" class="project-link">Для педагогов →</a>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in" data-category="partner">
+                    <span class="project-status status-partner">Партнёрский</span>
+                    <div class="project-body">
+                        <span class="project-category">Партнёрская программа</span>
+                        <h3>«Уроки доброты»</h3>
+                        <p>Совместно с АНО «Каждый Важен» реализуем проект, где нормотипичным ребятам рассказываем об особенностях детей с РАС. Проект на базе МАОУ «СОШ № 91» г. Оренбурга.</p>
+                        <div class="project-metrics">
+                            <span>Посещений: 25</span>
+                            <span>из 58</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 43%;"></div>
+                        </div>
+                        <a href="contact.html" class="project-link">Подробнее →</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="partners-section">
+        <div class="container">
+            <span class="section-label" style="display:inline-block; background:var(--accent-light); color:var(--accent); padding:6px 16px; border-radius:20px; font-size:0.85rem; font-weight:600; margin-bottom:16px;">Нам доверяют</span>
+            <h2 style="font-size:2rem; color:var(--primary); margin-bottom:24px;">Партнёры</h2>
+            <div class="partners-grid">
+                <div class="partner-logo">Министерство образования Оренбургской области</div>
+                <div class="partner-logo">Уполномоченный по правам ребёнка в Оренбургской области</div>
+                <div class="partner-logo">АНО «Росток Оренбуржья»</div>
+                <div class="partner-logo">ГБУ РЦ ППМС</div>
+                <div class="partner-logo">РО ВОРДИ по Оренбургской области</div>
+                <div class="partner-logo">АНО ДПО «Институт семьи»</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="page-cta fade-in">
+            <h2>Хотите участвовать?</h2>
+            <p>Мы всегда рады новым партнёрам и коллегам. Вместе мы сделаем больше!</p>
+            <a href="contact.html" class="btn btn-white">Связаться с нами →</a>
+        </div>
+    </div>
+
+    <footer id="site-footer" class="site-footer"></footer>
+
+    <script src="js/site-config.js"></script>
+    <script src="js/site-footer.js"></script>
+    <script>
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filterValue = btn.getAttribute('data-filter');
+                projectCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.classList.remove('hidden');
+                        setTimeout(() => card.classList.add('visible'), 50);
+                    } else {
+                        card.classList.add('hidden');
+                        card.classList.remove('visible');
+                    }
+                });
+            });
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.style.boxShadow = window.scrollY > 50 ? '0 4px 20px rgba(0,0,0,0.1)' : 'none';
+        });
+    </script>
+    <script src="js/ai-chat.js" defer></script>
+</body>
+</html>

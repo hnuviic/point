@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Отчёты — админка</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/admin/assets/admin.css" />
+  </head>
+  <body>
+    <div class="bg-gradient"></div>
+    <div class="admin-wrap">
+      <div class="admin-top">
+        <div class="brand"><div class="brand-badge">ТО</div><div><h1>Отчёты о мероприятиях</h1><p>Итоги встреч и проектов</p></div></div>
+        <div class="top-actions">
+          <a class="btn btn-outline" href="/admin/home">← Кабинет</a>
+          <form method="post" action="/admin/logout" style="margin:0"><button class="btn btn-dark" type="submit">Выйти</button></form>
+        </div>
+      </div>
+      <%- include('partials/admin-nav', { admin, active: 'reports' }) %>
+
+      <div class="card" style="margin-bottom:14px;padding:18px">
+        <h3 style="margin:0 0 12px">Новый отчёт</h3>
+        <% if (error) { %><div class="error"><%= error %></div><% } %>
+        <form method="post" action="/admin/reports" class="form-grid">
+          <input name="title" placeholder="Название отчёта" required style="grid-column:1/-1" />
+          <textarea name="body" rows="5" placeholder="Кратко: сколько участников, что обсудили, итоги" required style="grid-column:1/-1"></textarea>
+          <label class="check"><input type="checkbox" name="published" value="1" /> Опубликовать (виден в кабинете)</label>
+          <button class="btn btn-primary" type="submit">Сохранить</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <table>
+          <thead><tr><th>Дата</th><th>Отчёт</th><th>Автор</th><th></th></tr></thead>
+          <tbody>
+            <% items.forEach((r) => { %>
+            <tr>
+              <td class="muted"><%= new Date(r.created_at).toLocaleDateString('ru-RU') %></td>
+              <td><strong><%= r.title %></strong><div class="muted"><%= r.body.slice(0,100) %>…</div></td>
+              <td class="muted"><%= r.author_name || '—' %></td>
+              <td>
+                <form method="post" action="/admin/reports/<%= r.id %>/toggle">
+                  <button class="btn btn-outline" type="submit"><%= r.published ? 'Скрыть' : 'Опубликовать' %></button>
+                </form>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Админка — Заявки | Точка Открытий</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/admin/assets/admin.css" />
+  </head>
+  <body>
+    <div class="bg-gradient"></div>
+
+    <div class="admin-wrap">
+      <div class="admin-top">
+        <div class="brand">
+          <div class="brand-badge">ТО</div>
+          <div>
+            <h1>Админ-панель</h1>
+            <p>
+              Вошли как <%= admin.full_name ? admin.full_name : admin.username %>
+              (<%= admin.role === 'admin' ? 'Администратор' : (admin.role === 'coordinator' ? 'Координатор' : 'Специалист') %>)
+            </p>
+          </div>
+        </div>
+        <div class="top-actions">
+          <a class="btn btn-outline" href="/admin/home">Кабинет</a>
+          <a class="btn btn-outline" href="/" target="_blank" rel="noopener">Сайт</a>
+          <form method="post" action="/admin/logout" style="margin: 0">
+            <button class="btn btn-dark" type="submit">Выйти</button>
+          </form>
+        </div>
+      </div>
+
+      <%- include('partials/admin-nav', { admin, active: 'requests' }) %>
+
+      <div class="filters">
+        <span class="filter-label">Статус:</span>
+        <a class="filter-link <%= filterStatus === 'all' ? 'active' : '' %>" href="/admin?kind=<%= filterKind %>">Все</a>
+        <a class="filter-link <%= filterStatus === 'new' ? 'active' : '' %>" href="/admin?status=new&kind=<%= filterKind %>">Новые</a>
+        <a class="filter-link <%= filterStatus === 'in_progress' ? 'active' : '' %>" href="/admin?status=in_progress&kind=<%= filterKind %>">В работе</a>
+        <a class="filter-link <%= filterStatus === 'done' ? 'active' : '' %>" href="/admin?status=done&kind=<%= filterKind %>">Обработаны</a>
+        <% if (admin.role !== 'specialist') { %>
+        <span class="filter-label" style="margin-left:12px">Тип:</span>
+        <a class="filter-link <%= filterKind === 'all' ? 'active' : '' %>" href="/admin?status=<%= filterStatus %>">Все</a>
+        <a class="filter-link <%= filterKind === 'contact' ? 'active' : '' %>" href="/admin?status=<%= filterStatus %>&kind=contact">Контакты</a>
+        <a class="filter-link <%= filterKind === 'booking' ? 'active' : '' %>" href="/admin?status=<%= filterStatus %>&kind=booking">Записи</a>
+        <% } %>
+      </div>
+
+      <% 
+        const normStatus = (r) => r.status || (r.processed ? 'done' : 'new');
+        const newContacts = requests.filter((r) => r.kind === 'contact' && normStatus(r) === 'new').length;
+        const newBookings = requests.filter((r) => r.kind === 'booking' && normStatus(r) === 'new').length;
+      %>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="num"><%= newContacts %></div>
+          <div class="label">Новые сообщения</div>
+        </div>
+        <div class="stat-card">
+          <div class="num"><%= newBookings %></div>
+          <div class="label">Новые записи</div>
+        </div>
+        <div class="stat-card">
+          <div class="num"><%= requests.length %></div>
+          <div class="label">Всего заявок</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <% if (!requests || requests.length === 0) { %>
+        <div class="empty">Пока нет заявок. Отправьте тест с contact.html или zap.html.</div>
+        <% } else { %>
+        <table>
+          <thead>
+            <tr>
+              <th>Дата</th>
+              <th>Тип</th>
+              <th>Клиент</th>
+              <th class="hide-mobile">Детали</th>
+              <th class="hide-mobile">Ответственный</th>
+              <th>Статус</th>
+              <th style="width: 190px">Действие</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% requests.forEach((r) => { %>
+            <% const st = normStatus(r); %>
+            <tr>
+              <td><%= new Date(r.created_at).toLocaleString('ru-RU') %></td>
+              <td>
+                <span class="tag <%= r.kind %>"><%= r.kind === 'contact' ? 'Контакт' : 'Запись' %></span>
+              </td>
+              <td>
+                <strong><%= r.name %></strong>
+                <div class="muted">Тел: <%= r.phone %></div>
+                <% if (r.kind === 'contact' && r.email) { %>
+                <div class="muted">Email: <%= r.email %></div>
+                <% } %>
+              </td>
+              <td class="hide-mobile">
+                <% if (r.kind === 'contact') { %>
+                <div><strong>Тема:</strong> <%= r.topic || '—' %></div>
+                <div class="muted"><%= r.message || '—' %></div>
+                <% } else { %>
+                <div><strong>Направление:</strong> <%= r.direction || '—' %></div>
+                <div class="muted">Дата: <%= r.desired_date || '—' %></div>
+                <% if (r.child_name) { %><div class="muted">Ребёнок: <%= r.child_name %></div><% } %>
+                <div class="muted"><%= r.comment || '—' %></div>
+                <% if (r.specialist_note) { %>
+                <div class="muted"><strong>Заметка:</strong> <%= r.specialist_note %></div>
+                <% } %>
+                <% } %>
+              </td>
+              <td class="hide-mobile">
+                <div class="muted">
+                  <%= r.assigned_full_name || r.assigned_username || '—' %>
+                </div>
+                <% if (admin.role !== 'specialist' && r.kind === 'contact') { %>
+                <form method="post" action="/admin/requests/contact/<%= r.id %>/note" style="margin-top: 8px">
+                  <input name="note" value="<%= r.admin_note || '' %>" placeholder="Заметка координатора" style="width: 100%; padding: 8px 10px; border-radius: 10px; border: 1px solid rgba(20,88,103,0.25)" />
+                  <button class="btn btn-outline" type="submit" style="width: 100%; margin-top: 8px">Сохранить заметку</button>
+                </form>
+                <% } %>
+                <% if (admin.role !== 'specialist' && r.kind === 'booking') { %>
+                <form method="post" action="/admin/requests/booking/<%= r.id %>/assign" style="margin-top: 8px">
+                  <select name="assigned_to" style="width: 100%; padding: 8px 10px; border-radius: 10px; border: 1px solid rgba(20,88,103,0.25)">
+                    <option value="" disabled <%= !r.assigned_to ? 'selected' : '' %>>Выберите специалиста</option>
+                    <% specialists.forEach((s) => { %>
+                      <option value="<%= s.id %>" <%= Number(r.assigned_to) === Number(s.id) ? 'selected' : '' %>><%= s.full_name || s.username %></option>
+                    <% }) %>
+                  </select>
+                  <button class="btn btn-outline" type="submit" style="width: 100%; margin-top: 8px">Назначить</button>
+                </form>
+                <% } %>
+                <% if (admin.role === 'specialist' && r.kind === 'booking') { %>
+                <form method="post" action="/admin/requests/booking/<%= r.id %>/note" style="margin-top: 8px">
+                  <input name="note" value="<%= r.specialist_note || '' %>" placeholder="Заметка по приёму" style="width: 100%; padding: 8px 10px; border-radius: 10px; border: 1px solid rgba(20,88,103,0.25)" />
+                  <button class="btn btn-outline" type="submit" style="width: 100%; margin-top: 8px">Сохранить заметку</button>
+                </form>
+                <% } %>
+              </td>
+              <td class="status <%= st === 'done' ? 'done' : 'new' %>">
+                <%= st === 'new' ? 'Новая' : (st === 'in_progress' ? 'В работе' : 'Обработана') %>
+              </td>
+              <td>
+                <form method="post" action="/admin/requests/<%= r.kind %>/<%= r.id %>/status">
+                  <button class="btn btn-primary" type="submit" style="width: 100%">
+                    <%= st === 'new' ? 'В работу' : (st === 'in_progress' ? 'Обработано' : 'Вернуть в новые') %>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>

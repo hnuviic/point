@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>События — админка</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/admin/assets/admin.css" />
+  </head>
+  <body>
+    <div class="bg-gradient"></div>
+    <div class="admin-wrap">
+      <div class="admin-top">
+        <div class="brand"><div class="brand-badge">ТО</div><div><h1>Анонсы событий</h1><p>Раздел «События» на сайте</p></div></div>
+        <div class="top-actions">
+          <a class="btn btn-outline" href="/admin/home">← Кабинет</a>
+          <form method="post" action="/admin/logout" style="margin:0"><button class="btn btn-dark" type="submit">Выйти</button></form>
+        </div>
+      </div>
+      <%- include('partials/admin-nav', { admin, active: 'events' }) %>
+
+      <div class="card" style="margin-bottom:14px;padding:18px">
+        <h3 style="margin:0 0 12px">Добавить мероприятие</h3>
+        <% if (error) { %><div class="error"><%= error %></div><% } %>
+        <form method="post" action="/admin/events" class="form-grid">
+          <input name="title" placeholder="Название" required style="grid-column:1/-1" />
+          <input name="event_date" type="date" />
+          <input name="event_time" type="time" />
+          <input name="place" placeholder="Место проведения" style="grid-column:1/-1" />
+          <select name="tag">
+            <option>Для родителей</option>
+            <option>Для педагогов</option>
+            <option>Мастер-класс</option>
+            <option>Открытое мероприятие</option>
+          </select>
+          <textarea name="body" rows="4" placeholder="Описание" style="grid-column:1/-1"></textarea>
+          <label class="check"><input type="checkbox" name="published" value="1" checked /> Опубликовать</label>
+          <label class="check"><input type="checkbox" name="featured" value="1" /> Главное событие (блок сверху)</label>
+          <button class="btn btn-primary" type="submit">Сохранить</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <table>
+          <thead><tr><th>Дата</th><th>Название</th><th>Место</th><th>Статус</th><th></th></tr></thead>
+          <tbody>
+            <% items.forEach((e) => { %>
+            <tr>
+              <td class="muted"><%= e.event_date || '—' %> <%= e.event_time || '' %></td>
+              <td><strong><%= e.title %></strong><div class="muted"><%= e.tag %></div></td>
+              <td class="muted"><%= e.place || '—' %></td>
+              <td><%= e.published ? (e.featured ? 'На сайте ★' : 'На сайте') : 'Черновик' %></td>
+              <td>
+                <form method="post" action="/admin/events/<%= e.id %>/toggle">
+                  <button class="btn btn-outline" type="submit"><%= e.published ? 'Снять' : 'Опубликовать' %></button>
+                </form>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

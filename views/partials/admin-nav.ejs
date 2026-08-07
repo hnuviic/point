@@ -1,0 +1,23 @@
+<nav class="admin-nav">
+  <a href="/admin/home" class="<%= active === 'home' ? 'active' : '' %>">Главная</a>
+  <% if (admin.role === 'admin' || admin.role === 'coordinator') { %>
+  <a href="/admin/news" class="<%= active === 'news' ? 'active' : '' %>">Новости</a>
+  <a href="/admin/events" class="<%= active === 'events' ? 'active' : '' %>">События</a>
+  <a href="/admin/reports" class="<%= active === 'reports' ? 'active' : '' %>">Отчёты</a>
+  <a href="/admin/analytics" class="<%= active === 'analytics' ? 'active' : '' %>">Аналитика</a>
+  <% } %>
+  <a href="/admin/sessions" class="<%= active === 'sessions' ? 'active' : '' %>">Сеансы</a>
+  <% if (admin.role !== 'specialist') { %>
+  <a href="/admin" class="<%= active === 'requests' ? 'active' : '' %>">Заявки</a>
+  <% } else { %>
+  <a href="/admin" class="<%= active === 'requests' ? 'active' : '' %>">Мои записи</a>
+  <% } %>
+  <% if (admin.role === 'admin' || admin.role === 'coordinator') { %>
+  <a href="/admin/quiz" class="<%= active === 'quiz' ? 'active' : '' %>">Тест родителей</a>
+  <% } %>
+  <a href="/admin/library" class="<%= active === 'library' ? 'active' : '' %>">Библиотека</a>
+  <% if (admin.role === 'admin') { %>
+  <a href="/admin/users" class="<%= active === 'users' ? 'active' : '' %>">Пользователи</a>
+  <a href="/admin/audit" class="<%= active === 'audit' ? 'active' : '' %>">Журнал</a>
+  <% } %>
+</nav>

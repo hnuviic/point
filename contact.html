@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты | Точка Открытий</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="css/site-footer.css">
+</head>
+<body>
+  <header id="header">
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <img src="логотип цветной без фона.png" alt="Точка Открытий" class="logo-img">
+                </a>
+                <div class="nav-links">
+                    <a href="info.html">О центре</a>
+                    <a href="seansy.html">Сеансы</a>
+                    <a href="podbor.html">Подбор курса</a>
+                    <a href="proect.html">Проекты</a>
+                    <a href="news.html">События</a>
+                    <a href="contact.html">Контакты</a>
+                    <a href="zap.html"><button class="btn btn-primary">Записаться</button></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Свяжитесь с нами</h1>
+            <p>Мы всегда открыты для вопросов, предложений и записи на консультацию</p>
+        </div>
+    </section>
+
+    <section class="contact-section" id="form">
+        <div class="container">
+            <div class="contact-grid">
+                
+                <div class="info-col">
+                    <div class="info-cards">
+                        <div class="info-card">
+                            <div class="card-icon">📞</div>
+                            <span class="card-title">Телефон</span>
+                            <span class="card-value"><a href="tel:89877969272">8 (987) 796-92-72</a></span>
+                        </div>
+                        <div class="info-card">
+                            <div class="card-icon">✉️</div>
+                            <span class="card-title">Email</span>
+                            <span class="card-value"><a href="ano.tochka56@mail.ru">ano.tochka56@mail.ru</a></span>
+                        </div>
+                        <div class="info-card info-card--address full-width">
+                            <div class="card-icon">📍</div>
+                            <span class="card-title">Адрес</span>
+                            <span class="card-value">Штаб общественной поддержки<br>г. Оренбург, ул. Цвиллинга, д. 1</span>
+                        </div>
+                        <div class="info-card">
+                            <div class="card-icon">🕒</div>
+                            <span class="card-title">Режим работы</span>
+                            <span class="card-value">Пн-Пт: 09:00 — 20:00<br>Сб-Вс: Выходной</span>
+                        </div>
+                    </div>
+
+                    <div class="map-wrapper">
+                        <iframe
+                            src="https://yandex.ru/map-widget/v1/?um=constructor%3A7b2075d3aa0e6a98cfd09c5a8d4811b7f8a4a4796c3067e36d0b67abdb4ee03e&amp;source=constructor"
+                            title="Штаб общественной поддержки на карте — ул. Цвиллинга, 1, Оренбург"
+                            width="500"
+                            height="400"
+                            frameborder="0"
+                            allowfullscreen="true"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <div class="form-wrapper">
+                    <h3>Напишите нам</h3>
+                    <p>Оставьте заявку — она сохраняется в системе центра, координатор свяжется с вами в течение рабочего дня</p>
+                    
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Ваше имя</label>
+                                <input type="text" name="name" class="form-input" placeholder="Иван Иванов" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Телефон</label>
+                                <input type="tel" name="phone" class="form-input" placeholder="+7 (___) ___-__-__" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-input" placeholder="example@mail.ru">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Тема обращения</label>
+                            <select name="topic" class="form-select" required>
+                                <option value="Запись на диагностику">Запись на диагностику</option>
+                                <option value="Вопрос по услугам">Вопрос по услугам</option>
+                                <option value="Сотрудничество">Сотрудничество</option>
+                                <option value="Жалоба / Предложение">Жалоба / Предложение</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Сообщение</label>
+                            <textarea name="message" class="form-textarea" rows="4" placeholder="Опишите ваш вопрос..."></textarea>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="consent" value="1" id="privacy" required>
+                            <label for="privacy">Я даю согласие на обработку персональных данных и соглашаюсь с политикой конфиденциальности</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-submit">Отправить сообщение</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="messenger-section">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 20px;">
+                <h2 style="color: var(--primary);">Быстрая связь</h2>
+                <p style="color: var(--gray);">Напишите нам в мессенджер для быстрого ответа</p>
+            </div>
+            
+            <div class="messenger-grid">
+                <a href="#" class="messenger-card" data-link="max" target="_blank" rel="noopener noreferrer">
+                    <div class="messenger-icon wa"></div>
+                    <span class="messenger-title">MAX</span>
+                    <span class="messenger-desc">Канал центра</span>
+                </a>
+
+                <a href="#" class="messenger-card" data-link="vk" target="_blank" rel="noopener noreferrer">
+                    <div class="messenger-icon vk"></div>
+                    <span class="messenger-title">ВКонтакте</span>
+                    <span class="messenger-desc">Сообщество</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="site-footer" class="site-footer"></footer>
+
+    <script src="js/site-config.js"></script>
+    <script src="js/site-footer.js"></script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerText;
+
+            btn.innerText = 'Отправка...';
+            btn.style.opacity = '0.7';
+            btn.disabled = true;
+
+            try {
+                const payload = {
+                    name: this.elements['name'].value,
+                    phone: this.elements['phone'].value,
+                    email: this.elements['email'].value,
+                    topic: this.elements['topic'].value,
+                    message: this.elements['message'].value,
+                    consent: this.elements['consent']?.checked ? 1 : 0
+                };
+
+                const resp = await fetch(window.siteApiUrl((window.SITE_API && window.SITE_API.contact) || '/api/contact'), {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!resp.ok) throw new Error('Ошибка отправки');
+
+                alert('Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.');
+                this.reset();
+            } catch (err) {
+                alert('Не удалось отправить заявку: ' + (err?.message || err));
+            } finally {
+                btn.innerText = originalText;
+                btn.style.opacity = '1';
+                btn.disabled = false;
+            }
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+    <script src="js/ai-chat.js" defer></script>
+</body>
+</html>

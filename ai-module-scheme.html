@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Схема — ИИ-помощник</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body { font-family: Arial, sans-serif; background: #fff; padding: 32px 40px; color: #111; }
+    .diagram { max-width: 780px; margin: 0 auto; }
+    .box {
+      border: 2px solid #333;
+      background: #f5f5f5;
+      padding: 14px 16px;
+      text-align: center;
+      font-size: 13px;
+      margin: 0 auto;
+      max-width: 420px;
+    }
+    .box.wide { max-width: 520px; }
+    .box.narrow { max-width: 280px; font-size: 12px; }
+    .arrow {
+      text-align: center;
+      padding: 8px 0;
+      font-size: 18px;
+      color: #333;
+    }
+    .arrow span { display: block; font-size: 11px; color: #555; margin-top: 2px; }
+    .row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      align-items: stretch;
+      margin: 8px 0;
+    }
+    .row .box { flex: 1; max-width: none; }
+    .branch { border: 1px dashed #666; padding: 12px; background: #fafafa; }
+    .branch-title { font-size: 11px; font-weight: bold; margin-bottom: 8px; text-align: center; }
+    .caption {
+      max-width: 780px;
+      margin: 20px auto 0;
+      font-family: 'Times New Roman', serif;
+      font-size: 14pt;
+      text-indent: 1.25cm;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="diagram">
+    <div class="box wide">Клиент: виджет ai-chat.js<br><small>POST /api/chat { message, history }</small></div>
+    <div class="arrow">↓<span>HTTPS, JSON</span></div>
+    <div class="box wide">Сервер: Chat Handler (server.js)<br><small>нормализация текста, trim, лимит истории</small></div>
+    <div class="arrow">↓<span>маршрутизация</span></div>
+    <div class="row">
+      <div class="branch" style="flex:1">
+        <div class="branch-title">OPENAI_API_KEY задан</div>
+        <div class="box narrow">OpenAI API<br>gpt-4o-mini</div>
+        <div class="arrow">↓</div>
+        <div class="box narrow">Ответ модели<br>source: openai</div>
+      </div>
+      <div class="branch" style="flex:1">
+        <div class="branch-title">Ключ отсутствует / ошибка API</div>
+        <div class="box narrow">chatLocalReply<br>шаблоны по ключевым словам</div>
+        <div class="arrow">↓</div>
+        <div class="box narrow">Локальный ответ<br>source: local</div>
+      </div>
+    </div>
+    <div class="arrow">↓<span>JSON { reply, source }</span></div>
+    <div class="box wide">Отображение в панели чата + запись в chat_logs</div>
+  </div>
+  <p class="caption">Рисунок – Архитектура взаимодействия компонентов ИИ-помощника</p>
+</body>
+</html>
