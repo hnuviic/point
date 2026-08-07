@@ -1203,9 +1203,9 @@ app.use((req, res, next) => {
 
 app.use(express.static(__dirname));
 
-app.listen(PORT, () => {
-  console.log(`Server started: http://localhost:${PORT}`);
-  console.log(`Admin panel: http://localhost:${PORT}/admin (after login)`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server started: http://0.0.0.0:${PORT}`);
+  console.log(`Admin panel: http://0.0.0.0:${PORT}/admin/login`);
   console.log(`DB: ${DB_PATH}`);
 });
 
