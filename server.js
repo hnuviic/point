@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
@@ -11,7 +12,44 @@ require('dotenv').config();
 const app = express();
 
 const PORT = Number(process.env.PORT || 3000);
-const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'data.sqlite');
+
+function isDirWritable(dir) {
+  try {
+    fs.mkdirSync(dir, { recursive: true });
+    const probe = path.join(dir, `.write-test-${process.pid}`);
+    fs.writeFileSync(probe, 'ok');
+    fs.unlinkSync(probe);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function resolveDbPath() {
+  const bundled = path.join(__dirname, 'data.sqlite');
+  const configured = process.env.DB_PATH
+    ? path.isAbsolute(process.env.DB_PATH)
+      ? process.env.DB_PATH
+      : path.join(__dirname, process.env.DB_PATH)
+    : bundled;
+
+  const configuredDir = path.dirname(configured);
+  if (isDirWritable(configuredDir)) {
+    if (!fs.existsSync(configured) && fs.existsSync(bundled) && configured !== bundled) {
+      fs.copyFileSync(bundled, configured);
+    }
+    return configured;
+  }
+
+  const fallback = path.join('/tmp', 'point-data.sqlite');
+  if (!fs.existsSync(fallback) && fs.existsSync(bundled)) {
+    fs.copyFileSync(bundled, fallback);
+  }
+  console.log(`[DB] Deploy directory is read-only, using ${fallback}`);
+  return fallback;
+}
+
+const DB_PATH = resolveDbPath();
 
 // When running behind a reverse proxy (Render/Railway/Nginx/Cloudflare),
 // trust X-Forwarded-* so secure cookies can work correctly.

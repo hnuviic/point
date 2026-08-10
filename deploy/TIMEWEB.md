@@ -74,7 +74,7 @@ Timeweb App Platform деплоит **из Git**, не через FTP.
 | `SESSION_SECRET` | `pointTochka2024_xK9mP2vL7nQ4wR8sT6uY1zA` |
 | `ADMIN_USERNAME` | `admin` |
 | `ADMIN_PASSWORD` | `12345` |
-| `DB_PATH` | `./data.sqlite` |
+| `DB_PATH` | `/tmp/point-data.sqlite` |
 | `COOKIE_SECURE` | `false` |
 
 Сохранить → **перезапустить** приложение.
