@@ -23,10 +23,28 @@ header {
   padding: 16px 0; background: var(--glass-bg); backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255,255,255,0.5);
 }
-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.logo-img { height: 48px; }
-.nav-links { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-.nav-links a:hover { color: var(--primary-light); }
+nav { display: flex; align-items: center; justify-content: space-between; }
+.logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.logo-img { height: 80px; width: auto; max-width: 200px; object-fit: contain; display: block; }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a {
+  color: var(--dark);
+  font-weight: 500;
+  font-size: 0.95rem;
+  position: relative;
+  transition: 0.3s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: 0.3s;
+}
+.nav-links a:hover::after { width: 100%; }
 .btn {
   border-radius: 50px;
   padding: 14px 28px;
@@ -70,12 +88,12 @@ nav { display: flex; align-items: center; justify-content: space-between; gap: 1
 .btn-outline-light:hover { background: rgba(255,255,255,0.22); }
 
 .page-header {
-  padding: 140px 0 60px;
-  background: linear-gradient(135deg, rgba(44,139,158,0.12), rgba(242,217,228,0.35));
+  padding: 180px 0 60px;
+  background: linear-gradient(180deg, #e8b8cc 0%, var(--accent-light) 35%, var(--light) 100%);
   text-align: center;
 }
-.page-header h1 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 12px; color: var(--primary); }
-.page-header p { color: var(--gray); max-width: 640px; margin: 0 auto; }
+.page-header h1 { font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 16px; color: var(--primary); }
+.page-header p { font-size: 1.2rem; color: var(--gray); max-width: 640px; margin: 0 auto; }
 
 .section { padding: 60px 0; }
 .section-title { text-align: center; margin-bottom: 36px; }
@@ -150,5 +168,6 @@ footer {
 
 @media (max-width: 768px) {
   .nav-links { display: none; }
+  .logo-img { height: 40px; max-width: 150px; }
   .page-header { padding-top: 110px; }
 }
