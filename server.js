@@ -454,32 +454,32 @@ app.post('/api/chat', async (req, res) => {
   if (!apiKey) {
     reply = chatLocalReply(userText);
   } else {
-    try {
-      const history = Array.isArray(req.body.history) ? req.body.history.slice(-8) : [];
-      const messages = [
-        { role: 'system', content: CHAT_SYSTEM },
-        ...history.map((h) => ({
-          role: h.role === 'assistant' ? 'assistant' : 'user',
-          content: String(h.content || ''),
-        })),
-        { role: 'user', content: userText },
-      ];
+  try {
+    const history = Array.isArray(req.body.history) ? req.body.history.slice(-8) : [];
+    const messages = [
+      { role: 'system', content: CHAT_SYSTEM },
+      ...history.map((h) => ({
+        role: h.role === 'assistant' ? 'assistant' : 'user',
+        content: String(h.content || ''),
+      })),
+      { role: 'user', content: userText },
+    ];
 
-      const resp = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${apiKey}`,
-        },
-        body: JSON.stringify({
-          model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
-          messages,
-          max_tokens: 400,
-          temperature: 0.6,
-        }),
-      });
+    const resp = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
+        messages,
+        max_tokens: 400,
+        temperature: 0.6,
+      }),
+    });
 
-      if (!resp.ok) {
+    if (!resp.ok) {
         reply = chatLocalReply(userText);
       } else {
         const data = await resp.json();
@@ -892,28 +892,28 @@ app.get('/admin', requireAdmin, (req, res) => {
       .map((r) => ({ ...r, kind: 'booking' }));
   } else {
     contact = db
-      .prepare(
+    .prepare(
         `SELECT c.id, c.created_at, c.processed, c.status, c.name, c.phone, c.email, c.topic, c.message,
                 c.assigned_to, c.admin_note,
                 u.username AS assigned_username, u.full_name AS assigned_full_name
          FROM contact_requests c
          LEFT JOIN admin_users u ON u.id = c.assigned_to
          ORDER BY c.created_at DESC`
-      )
-      .all()
-      .map((r) => ({ ...r, kind: 'contact' }));
+    )
+    .all()
+    .map((r) => ({ ...r, kind: 'contact' }));
 
     booking = db
-      .prepare(
+    .prepare(
         `SELECT b.id, b.created_at, b.processed, b.status, b.name, b.phone, b.child_name, b.direction, b.desired_date, b.comment,
                 b.assigned_to, b.specialist_note,
                 u.username AS assigned_username, u.full_name AS assigned_full_name
          FROM booking_requests b
          LEFT JOIN admin_users u ON u.id = b.assigned_to
          ORDER BY b.created_at DESC`
-      )
-      .all()
-      .map((r) => ({ ...r, kind: 'booking' }));
+    )
+    .all()
+    .map((r) => ({ ...r, kind: 'booking' }));
   }
 
   let requests = [...contact, ...booking].sort((a, b) => (a.created_at < b.created_at ? 1 : -1));
